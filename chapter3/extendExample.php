@@ -15,4 +15,40 @@ class ShopProduct {
 		$this->numPages = $numPages;
 		$this->playLength = $playLength;
 	}
+
+	function getProducer() {
+		return "{$this->producerFirstName} {$this->producerMainName}";
+	}
+
+	function getSummaryLine() {
+		$base = "$this->title ( {$this->producerMainName},";
+		$base .= "{$this->producerFirstName} )";
+		return $base;
+	}
+}
+
+class CdProduct extends ShopProduct {
+	function getPlayLength() {
+		return $this->playLength;
+	}
+
+	function getSummaryLine() {
+		$base = "$this->title ( {$this->producerMainName},";
+		$base .= "{$this->producerFirstName} )";
+		$base .= ": playing time -{$this->playLength}";
+		return $base;
+	}
+}
+
+class BookProduct extends ShopProduct {
+	function getNumberOfPages() {
+		return $this->numPages;
+	}
+
+	function getSummaryLine() {
+		$base = "$this->title ( {$this->producerMainName},";
+		$base .= "{$this->producerFirstName} )";
+		$base .= ": page count -{$this->numPages}";
+		return $base;
+	}
 }
