@@ -1,10 +1,11 @@
 <?php
 class ShopProduct {
 	public $playLength;
-	public $title;
-	public $producerMainName;
-	public $producerFirstName;
-	public $price;
+	private $title;
+	private $producerMainName;
+	private $producerFirstName;
+	protected $price;
+	private $discount = 0;
 
 	function __construct($title, $firstName, $mainName, $price,
 						$numPages=0, $playLength=0) {
@@ -14,6 +15,26 @@ class ShopProduct {
 		$this->price = $price;
 		$this->numPages = $numPages;
 		$this->playLength = $playLength;
+	}
+
+	public function getproducerFirstName(){
+		return $this->producerFirstName;
+	}
+
+	public function getproducerMainName() {
+		return $this->producerMainName;
+	}
+
+	public function setDiscount($num) {
+		$this->discount = $num;
+	}
+
+	public function getTitle() {
+		return $this->title;
+	}
+
+	public function getPrice() {
+		return ($this->price - $this->discount);
 	}
 
 	function getProducer() {
@@ -33,8 +54,7 @@ class CdProduct extends ShopProduct {
 	}
 
 	function getSummaryLine() {
-		$base = "$this->title ( {$this->producerMainName},";
-		$base .= "{$this->producerFirstName} )";
+		$base = parent::getSummaryLine();
 		$base .= ": playing time -{$this->playLength}";
 		return $base;
 	}
@@ -46,8 +66,7 @@ class BookProduct extends ShopProduct {
 	}
 
 	function getSummaryLine() {
-		$base = "$this->title ( {$this->producerMainName},";
-		$base .= "{$this->producerFirstName} )";
+		$base = parent::getSummaryLine();
 		$base .= ": page count -{$this->numPages}";
 		return $base;
 	}
